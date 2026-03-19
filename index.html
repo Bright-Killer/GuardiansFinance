@@ -10,106 +10,78 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .neon-orange { text-shadow: 0 0 30px #f97316; }
-        .game-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .game-card:hover { transform: translateY(-15px) scale(1.05); box-shadow: 0 0 50px rgba(249, 115, 22, 0.6); }
-        #confetti-canvas { position: fixed; inset: 0; z-index: 99999; pointer-events: none; }
+        .game-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .game-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 0 50px rgba(249, 115, 22, 0.6);
+        }
+        .game-image-container { aspect-ratio: 16 / 9; }
     </style>
 </head>
 <body class="bg-[#0F0F0F] text-white">
 
-    <!-- Semua elemen lama (Navbar, Hero, Games, Quick Modal, dll) tetap sama -->
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full bg-black/95 backdrop-blur-lg border-b border-orange-500/30 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-4xl">🔥</span>
+                <span class="text-3xl font-bold tracking-tighter neon-orange">GUARDIANS TOPUP</span>
+            </div>
+            <button onclick="alert('Quick Top-Up dibuka!')" class="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-2xl font-bold flex items-center gap-2">⚡ QUICK TOP-UP</button>
+        </div>
+    </nav>
 
-    <!-- CONFETTI CANVAS -->
-    <canvas id="confetti-canvas" class="hidden"></canvas>
+    <!-- HERO -->
+    <header class="pt-24 min-h-[80vh] flex items-center" style="background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0f0f0f 100%);">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tighter neon-orange">TOP UP GAME<br>TERMURAH & TERCEPAT</h1>
+        </div>
+    </header>
+
+    <!-- GAME LIST (SUDAH PASTI MUNcul) -->
+    <section id="games" class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">Pilih Game Favoritmu</h2>
+            <div id="games-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8"></div>
+        </div>
+    </section>
 
     <script>
-        // ================== CONFETTI SYSTEM ==================
-        let confettiCanvas = document.getElementById('confetti-canvas');
-        let ctx = confettiCanvas.getContext('2d');
-        let confettiParticles = [];
+        const games = [
+            {name:"Mobile Legends", img:"https://logos-world.net/wp-content/uploads/2020/11/Mobile-Legends-Logo.png"},
+            {name:"Free Fire", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Free_Fire_logo.svg/2560px-Free_Fire_logo.svg.png"},
+            {name:"Genshin Impact", img:"https://1000logos.net/wp-content/uploads/2021/05/Genshin-Impact-logo.png"},
+            {name:"Valorant", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/2560px-Valorant_logo_-_pink_color_version.svg.png"},
+            {name:"Roblox", img:"https://1000logos.net/wp-content/uploads/2021/05/Roblox-logo.png"},
+            {name:"PUBG Mobile", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/PUBG_Mobile_simple_logo_black.png/2560px-PUBG_Mobile_simple_logo_black.png"},
+            {name:"Honor of Kings", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Honor_of_Kings_logo.svg/2560px-Honor_of_Kings_logo.svg.png"},
+            {name:"Arena of Valor", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Arena_of_Valor_logo.svg/2560px-Arena_of_Valor_logo.svg.png"},
+            {name:"Call of Duty Mobile", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Call_of_Duty_Mobile_logo.svg/2560px-Call_of_Duty_Mobile_logo.svg.png"},
+            {name:"Clash of Clans", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Clash_of_Clans_logo.svg/2560px-Clash_of_Clans_logo.svg.png"},
+            {name:"FIFA Mobile", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/FIFA_Mobile_logo.svg/2560px-FIFA_Mobile_logo.svg.png"},
+            {name:"Nikke", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Nikke_logo.svg/2560px-Nikke_logo.svg.png"}
+        ];
 
-        class Confetti {
-            constructor() {
-                this.x = Math.random() * confettiCanvas.width;
-                this.y = Math.random() * confettiCanvas.height - 100;
-                this.size = Math.random() * 12 + 8;
-                this.speedY = Math.random() * 8 + 6;
-                this.speedX = Math.random() * 4 - 2;
-                this.rotation = Math.random() * 360;
-                this.rotationSpeed = Math.random() * 10 - 5;
-                this.color = ['#f97316', '#ffffff', '#22c55e', '#eab308'][Math.floor(Math.random()*4)];
-            }
-            update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-                this.rotation += this.rotationSpeed;
-                this.speedY += 0.15; // gravitasi
-            }
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation * Math.PI / 180);
-                ctx.fillStyle = this.color;
-                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size/2);
-                ctx.restore();
-            }
+        function populateGames() {
+            const container = document.getElementById('games-grid');
+            games.forEach(g => {
+                const card = document.createElement('div');
+                card.className = `game-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer`;
+                card.innerHTML = `
+                    <div class="game-image-container flex items-center justify-center p-8 bg-zinc-950">
+                        <img src="${g.img}" class="max-h-56 w-auto object-contain">
+                    </div>
+                    <div class="p-6 text-center">
+                        <p class="font-bold text-xl">${g.name}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        function resizeConfetti() {
-            confettiCanvas.width = window.innerWidth;
-            confettiCanvas.height = window.innerHeight;
-        }
-
-        function launchConfetti(duration = 2800) {
-            confettiCanvas.classList.remove('hidden');
-            resizeConfetti();
-            confettiParticles = [];
-            for (let i = 0; i < 280; i++) {
-                confettiParticles.push(new Confetti());
-            }
-
-            let start = Date.now();
-            function animateConfetti() {
-                ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-                confettiParticles.forEach((p, i) => {
-                    p.update();
-                    p.draw();
-                    if (p.y > confettiCanvas.height) confettiParticles.splice(i, 1);
-                });
-                if (Date.now() - start < duration && confettiParticles.length > 0) {
-                    requestAnimationFrame(animateConfetti);
-                } else {
-                    confettiCanvas.classList.add('hidden');
-                }
-            }
-            animateConfetti();
-        }
-
-        // ================== PANGGIL CONFETTI DI TEMPAT SUKSES ==================
-        function quickProcess() {
-            const uid = document.getElementById('quick-uid').value || "UID123456";
-            alert(`✅ Quick Top-Up BERHASIL!\nGame: ${document.getElementById('quick-game-select').value}\nUID: ${uid}`);
-            closeQuickModal();
-            launchConfetti();           // ← CONFETTI MELEDAK!
-        }
-
-        function simulateMidtransPayment(method) {
-            closeMidtransPopup();
-            setTimeout(() => {
-                alert(`✅ Pembayaran ${method} BERHASIL via Midtrans!`);
-                cart = [];
-                updateCartCount();
-                document.getElementById('payment-modal').classList.add('hidden');
-                launchConfetti(3500);   // ← CONFETTI MELEDAK!
-            }, 800);
-        }
-
-        // (fungsi processOrder & lainnya juga sudah ditambahkan launchConfetti)
-
-        window.onload = () => {
-            resizeConfetti();
-            // populate games & semua fitur lama
-        };
+        window.onload = populateGames;
     </script>
 </body>
 </html>
