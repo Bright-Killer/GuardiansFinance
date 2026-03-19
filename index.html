@@ -3,85 +3,577 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardians Topup - Top Up Game Instan</title>
+    <title>GUARDIANS TOPUP - Top Up Game Trending 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .neon-orange { text-shadow: 0 0 30px #f97316; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Poppins:wght@600;700&amp;display=swap');
+        
+        :root { --primary: #facc15; }
+        
+        .tail-container { font-family: 'Inter', system_ui, sans-serif; }
+        .logo-font { font-family: 'Poppins', sans-serif; }
+
+        .hero-bg { 
+            background: #10b981; 
+            position: relative;
+            overflow: hidden;
+        }
+
         .game-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .game-card:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 0 50px rgba(249, 115, 22, 0.6);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
-        .game-image-container { aspect-ratio: 16 / 9; }
+
+        .modal { animation: modalPop 0.3s ease; }
+        @keyframes modalPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        .bottom-nav { box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1); }
+
+        /* Live Ticker */
+        .live-ticker {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .live-marquee {
+            display: inline-flex;
+            animation: marquee 35s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* IMPROVED PROFESSIONAL MODAL STYLING */
+        .modal-content {
+            background: #18181b;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+        .modal-header {
+            background: #27272a;
+            border-bottom: 1px solid #3f3f46;
+        }
+        .selected-package {
+            background: #27272a;
+            border: 2px solid #eab308;
+            border-radius: 20px;
+        }
+        .info-box {
+            background: #27272a;
+            border-radius: 20px;
+        }
+
+        /* PERBAIKAN LAYOUT TOMBOL WA - SESUAI SCREENSHOT */
+        .wa-button {
+            background: #22c55e;
+            transition: all 0.3s ease;
+            height: 68px;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .wa-button:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgb(34 197 94 / 0.5);
+        }
+        .wa-button i {
+            font-size: 28px;
+        }
     </style>
 </head>
-<body class="bg-[#0F0F0F] text-white">
+<body class="tail-container bg-zinc-950 text-white min-h-screen pb-20">
 
-    <!-- NAVBAR -->
-    <nav class="fixed top-0 w-full bg-black/95 backdrop-blur-lg border-b border-orange-500/30 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <span class="text-4xl">🔥</span>
-                <span class="text-3xl font-bold tracking-tighter neon-orange">GUARDIANS TOPUP</span>
+    <!-- TOP NAVBAR -->
+    <nav class="bg-zinc-950 border-b border-zinc-800 sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-yellow-400 rounded-2xl flex items-center justify-center shadow-lg shadow-yellow-500/50">
+                        <span class="text-zinc-950 text-4xl font-bold logo-font">G</span>
+                    </div>
+                    <div>
+                        <span class="text-3xl font-bold tracking-tighter logo-font text-yellow-400">GUARDIANS</span>
+                        <span class="text-3xl font-bold tracking-tighter logo-font">TOPUP</span>
+                    </div>
+                </div>
+
+                <div class="flex-1 max-w-md mx-6 relative hidden md:block">
+                    <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-zinc-400"></i>
+                    <input id="searchInput" type="text" placeholder="Cari game trending 2026..." 
+                           class="w-full bg-zinc-900 border border-zinc-700 focus:border-yellow-400 rounded-3xl py-3.5 pl-12 pr-6 text-sm outline-none">
+                </div>
+
+                <div class="flex items-center gap-5">
+                    <div onclick="showPoints()" class="flex items-center gap-2 cursor-pointer">
+                        <div class="w-9 h-9 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-coins text-zinc-950 text-xl"></i>
+                        </div>
+                        <div class="hidden sm:block">
+                            <div class="text-xs text-zinc-400">Poin</div>
+                            <div class="text-sm font-semibold text-yellow-400">12.450</div>
+                        </div>
+                    </div>
+                    <button onclick="toggleMenu()" class="w-10 h-10 flex items-center justify-center text-3xl hover:bg-zinc-900 rounded-2xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
             </div>
-            <button onclick="alert('Quick Top-Up dibuka!')" class="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-2xl font-bold flex items-center gap-2">⚡ QUICK TOP-UP</button>
+        </div>
+
+        <!-- Mobile search -->
+        <div class="md:hidden px-4 pb-4">
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-zinc-400"></i>
+                <input id="searchInputMobile" type="text" placeholder="Cari game trending 2026..." 
+                       class="w-full bg-zinc-900 border border-zinc-700 focus:border-yellow-400 rounded-3xl py-3 pl-12 pr-6 text-sm outline-none">
+            </div>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <header class="pt-24 min-h-[80vh] flex items-center" style="background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0f0f0f 100%);">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h1 class="text-6xl md:text-8xl font-bold tracking-tighter neon-orange">TOP UP GAME<br>TERMURAH & TERCEPAT</h1>
-        </div>
-    </header>
+    <!-- HERO BANNER -->
+    <section class="hero-bg relative py-10">
+        <div class="max-w-screen-xl mx-auto px-4">
+            <div class="absolute -top-6 left-6 text-7xl opacity-90 md:left-12">🥟</div>
+            <div class="absolute -top-8 right-6 text-6xl opacity-90 rotate-12 md:right-12">🥟</div>
+            
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center gap-3 bg-white/20 text-white text-sm font-medium px-8 py-3 rounded-3xl mx-auto">
+                    <i class="fa-solid fa-gift"></i>
+                    GUARDIANS TOPUP TRENDING 2026
+                </div>
+            </div>
 
-    <!-- GAME LIST (SUDAH PASTI MUNcul) -->
-    <section id="games" class="py-20 bg-black">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12">Pilih Game Favoritmu</h2>
-            <div id="games-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8"></div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+                <div class="prize-card bg-white/10 backdrop-blur-xl rounded-3xl p-4 text-center">
+                    <img src="https://picsum.photos/id/20/300/220" alt="PS5 Slim 1TB" class="w-full h-32 object-cover rounded-2xl mx-auto">
+                    <p class="text-white text-sm font-medium mt-3">PS5 Slim<br>1TB</p>
+                </div>
+                <div class="prize-card bg-white/10 backdrop-blur-xl rounded-3xl p-4 text-center">
+                    <img src="https://picsum.photos/id/29/300/220" alt="realme Phone" class="w-full h-32 object-cover rounded-2xl mx-auto">
+                    <p class="text-white text-sm font-medium mt-3">realme<br>Phone</p>
+                </div>
+                <div class="prize-card bg-white/10 backdrop-blur-xl rounded-3xl p-4 text-center">
+                    <img src="https://picsum.photos/id/30/300/220" alt="43&quot; Smart TV" class="w-full h-32 object-cover rounded-2xl mx-auto">
+                    <p class="text-white text-sm font-medium mt-3">43&quot; Smart<br>TV</p>
+                </div>
+                <div class="prize-card bg-white/10 backdrop-blur-xl rounded-3xl p-4 text-center">
+                    <img src="https://picsum.photos/id/201/300/220" alt="Nintendo Switch" class="w-full h-32 object-cover rounded-2xl mx-auto">
+                    <p class="text-white text-sm font-medium mt-3">Nintendo<br>Switch</p>
+                </div>
+                <div class="prize-card bg-white/10 backdrop-blur-xl rounded-3xl p-4 text-center">
+                    <img src="https://picsum.photos/id/160/300/220" alt="ROG Ally" class="w-full h-32 object-cover rounded-2xl mx-auto">
+                    <p class="text-white text-sm font-medium mt-3">ROG Ally</p>
+                </div>
+                <div class="prize-card bg-white/10 backdrop-blur-xl rounded-3xl p-4 text-center flex flex-col items-center justify-center">
+                    <div class="w-20 h-20 bg-yellow-400 rounded-2xl flex items-center justify-center mx-auto">
+                        <i class="fa-solid fa-ticket text-5xl text-zinc-950"></i>
+                    </div>
+                    <p class="text-white text-sm font-medium mt-4">1.000+<br>Voucher</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <div class="inline-block bg-white/10 text-white text-sm font-medium px-8 py-4 rounded-3xl">
+                    + Saldo ShopeePay Rp 750.000
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- LIVE TOPUP NOTIFICATION -->
+    <section class="bg-zinc-900 py-3 border-b border-zinc-800 overflow-hidden">
+        <div class="max-w-screen-xl mx-auto px-4 flex items-center gap-4 text-sm">
+            <div class="bg-green-500 text-white text-xs font-bold px-4 py-1 rounded-3xl flex items-center gap-1 flex-shrink-0">
+                <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                LIVE
+            </div>
+            <div id="liveTicker" class="live-ticker flex-1 text-green-400 font-medium"></div>
+        </div>
+    </section>
+
+    <!-- FAVORITE SECTION -->
+    <section class="max-w-screen-xl mx-auto px-4 pt-10">
+        <div class="flex items-center gap-3 mb-8">
+            <i class="fa-solid fa-star text-3xl text-yellow-400"></i>
+            <h2 class="text-3xl font-bold">Favorite Trending 2026</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+            <div onclick="selectGame(1)" class="game-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-yellow-400">
+                <div class="relative">
+                    <img src="https://cdn.codashop.com/static/assets/games/mobile-legends.jpg" alt="Mobile Legends" class="w-full h-44 object-cover">
+                    <div class="absolute top-4 left-4 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow text-xl">🇮🇩</div>
+                    <div class="absolute bottom-4 right-4 bg-yellow-400 text-zinc-950 text-[10px] font-bold px-3 py-1 rounded-3xl">LEBIH MURAH</div>
+                </div>
+                <div class="p-4">
+                    <p class="font-semibold text-lg">Mobile Legends</p>
+                    <p class="text-zinc-400 text-sm">Bang Bang ID</p>
+                </div>
+            </div>
+
+            <div onclick="selectGame(2)" class="game-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-yellow-400">
+                <div class="relative">
+                    <img src="https://cdn.codashop.com/static/assets/games/free-fire-max.jpg" alt="Free Fire MAX" class="w-full h-44 object-cover">
+                    <div class="absolute top-4 right-4"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/FF_logo.svg/512px-FF_logo.svg.png" class="w-10 h-10"></div>
+                </div>
+                <div class="p-4">
+                    <p class="font-semibold text-lg">Free Fire MAX</p>
+                    <p class="text-zinc-400 text-sm">Garena Indonesia</p>
+                </div>
+            </div>
+
+            <div onclick="selectGame(3)" class="game-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-yellow-400">
+                <div class="relative">
+                    <img src="https://cdn.codashop.com/static/assets/games/genshin-impact.jpg" alt="Genshin Impact" class="w-full h-44 object-cover">
+                </div>
+                <div class="p-4">
+                    <p class="font-semibold text-lg">Genshin Impact</p>
+                    <p class="text-zinc-400 text-sm">Hoyoverse</p>
+                </div>
+            </div>
+
+            <div onclick="selectGame(4)" class="game-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-yellow-400">
+                <div class="relative">
+                    <img src="https://cdn.codashop.com/static/assets/games/roblox.jpg" alt="Roblox" class="w-full h-44 object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="flex items-center gap-2"><span class="text-red-500 font-black text-2xl">R</span><p class="font-semibold text-lg">Roblox</p></div>
+                    <p class="text-zinc-400 text-sm">Robux Indonesia</p>
+                </div>
+            </div>
+
+            <div onclick="selectGame(5)" class="game-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-yellow-400">
+                <div class="relative">
+                    <img src="https://cdn.codashop.com/static/assets/games/pubg-mobile.jpg" alt="PUBG Mobile" class="w-full h-44 object-cover">
+                </div>
+                <div class="p-4">
+                    <p class="font-semibold text-lg">PUBG Mobile</p>
+                    <p class="text-zinc-400 text-sm">UC Indonesia</p>
+                </div>
+            </div>
+
+            <div onclick="selectGame(6)" class="game-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-yellow-400">
+                <div class="relative">
+                    <img src="https://cdn.codashop.com/static/assets/games/honkai-star-rail.jpg" alt="Honkai Star Rail" class="w-full h-44 object-cover">
+                </div>
+                <div class="p-4">
+                    <p class="font-semibold text-lg">Honkai: Star Rail</p>
+                    <p class="text-zinc-400 text-sm">Stellar Jade</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/628161113164" target="_blank" 
+       class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 w-16 h-16 rounded-3xl flex items-center justify-center shadow-2xl z-[9999] transition-all text-white text-4xl">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- TOPUP MODAL -->
+    <div id="topupModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[9999] p-4">
+        <div class="modal-content w-full max-w-md max-h-[92vh] overflow-auto">
+            
+            <!-- HEADER -->
+            <div class="modal-header px-6 py-5 flex items-center justify-between sticky top-0 z-10">
+                <div id="modalGameTitle" class="flex items-center gap-4"></div>
+                <button onclick="closeModal()" class="text-3xl text-zinc-400 hover:text-white transition-colors">✕</button>
+            </div>
+
+            <div class="p-6 space-y-7">
+                
+                <!-- SELECTED PACKAGE -->
+                <div id="selectedPackageDisplay" class="hidden selected-package p-5 text-center">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div id="selectedQty" class="text-3xl font-bold text-white"></div>
+                            <div id="selectedCurrency" class="text-sm text-zinc-400"></div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs text-yellow-400 font-medium">Rp</div>
+                            <div id="selectedPrice" class="text-4xl font-bold text-yellow-400"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRICE LIST -->
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-zinc-500 mb-3">Pilih Nominal Top Up</p>
+                    <div id="priceList" class="grid grid-cols-2 gap-3"></div>
+                </div>
+
+                <!-- INPUT FIELD -->
+                <div>
+                    <label id="idLabel" class="block text-sm text-zinc-400 mb-2 font-medium">Username Roblox</label>
+                    <input id="userIdInput" type="text" 
+                           class="w-full bg-zinc-800 border border-zinc-700 focus:border-yellow-400 rounded-2xl px-5 py-4 text-lg outline-none transition-all">
+                </div>
+
+                <!-- SERVER FIELD -->
+                <div id="serverField" class="hidden">
+                    <label id="serverLabel" class="block text-sm text-zinc-400 mb-2 font-medium">Server / Zone ID</label>
+                    <input id="serverInput" type="text" 
+                           class="w-full bg-zinc-800 border border-zinc-700 focus:border-yellow-400 rounded-2xl px-5 py-4 text-lg outline-none transition-all">
+                </div>
+
+                <!-- CARA CEK ID -->
+                <div class="info-box p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-6 h-6 bg-yellow-400 text-zinc-950 rounded-full flex items-center justify-center text-sm font-bold">i</div>
+                        <p class="font-semibold text-white">Cara Cek ID</p>
+                    </div>
+                    <p id="howToCheckText" class="text-zinc-400 text-sm leading-relaxed"></p>
+                </div>
+
+                <!-- TOMBOL WA YANG SUDAH DIPERBAIKI LAYOUTNYA -->
+                <button onclick="proceedToPayment()" 
+                        class="wa-button w-full rounded-3xl text-white font-bold flex items-center justify-center gap-4 shadow-2xl">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    BAYAR LANGSUNG VIA WHATSAPP
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-zinc-950 border-t border-zinc-800 md:hidden bottom-nav z-50">
+        <div class="max-w-screen-xl mx-auto grid grid-cols-5 text-center text-xs py-2">
+            <a href="#" class="flex flex-col items-center py-1 text-yellow-400">
+                <i class="fa-solid fa-house text-2xl mb-1"></i>
+                <span class="font-medium">Beranda</span>
+            </a>
+            <a href="#" class="flex flex-col items-center py-1 text-zinc-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-receipt text-2xl mb-1"></i>
+                <span>Pesanan</span>
+            </a>
+            <a href="#" class="flex flex-col items-center py-1 text-zinc-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-comment-dots text-2xl mb-1"></i>
+                <span>Chat</span>
+            </a>
+            <a href="#" class="flex flex-col items-center py-1 text-zinc-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-newspaper text-2xl mb-1"></i>
+                <span>Blog</span>
+            </a>
+            <a href="https://wa.me/628161113164" target="_blank" class="flex flex-col items-center py-1 text-green-400">
+                <div class="w-8 h-8 bg-green-500 rounded-2xl flex items-center justify-center text-white text-2xl mb-1">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <span>Login</span>
+            </a>
+        </div>
+    </nav>
+
+    <footer class="hidden md:block bg-zinc-900 py-8 mt-16">
+        <div class="max-w-screen-xl mx-auto px-4 text-center text-zinc-400 text-sm">
+            © 2026 GUARDIANS TOPUP • Harga Real &amp; Instant • Kontak WA: 0816-1113-164
+        </div>
+    </footer>
+
     <script>
-        const games = [
-            {name:"Mobile Legends", img:"https://logos-world.net/wp-content/uploads/2020/11/Mobile-Legends-Logo.png"},
-            {name:"Free Fire", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Free_Fire_logo.svg/2560px-Free_Fire_logo.svg.png"},
-            {name:"Genshin Impact", img:"https://1000logos.net/wp-content/uploads/2021/05/Genshin-Impact-logo.png"},
-            {name:"Valorant", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/2560px-Valorant_logo_-_pink_color_version.svg.png"},
-            {name:"Roblox", img:"https://1000logos.net/wp-content/uploads/2021/05/Roblox-logo.png"},
-            {name:"PUBG Mobile", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/PUBG_Mobile_simple_logo_black.png/2560px-PUBG_Mobile_simple_logo_black.png"},
-            {name:"Honor of Kings", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Honor_of_Kings_logo.svg/2560px-Honor_of_Kings_logo.svg.png"},
-            {name:"Arena of Valor", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Arena_of_Valor_logo.svg/2560px-Arena_of_Valor_logo.svg.png"},
-            {name:"Call of Duty Mobile", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Call_of_Duty_Mobile_logo.svg/2560px-Call_of_Duty_Mobile_logo.svg.png"},
-            {name:"Clash of Clans", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Clash_of_Clans_logo.svg/2560px-Clash_of_Clans_logo.svg.png"},
-            {name:"FIFA Mobile", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/FIFA_Mobile_logo.svg/2560px-FIFA_Mobile_logo.svg.png"},
-            {name:"Nikke", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Nikke_logo.svg/2560px-Nikke_logo.svg.png"}
+        const gamesData = {
+            1: { name: "Mobile Legends: Bang Bang", banner: "https://cdn.codashop.com/static/assets/games/mobile-legends.jpg", currency: "Diamonds",
+                packages: [{qty: "12 Diamonds", price: 3500}, {qty: "28 Diamonds", price: 8000}, {qty: "56 Diamonds", price: 16000}, {qty: "85 Diamonds", price: 23000}, {qty: "169 Diamonds", price: 46000}, {qty: "220 Diamonds", price: 60000}],
+                idLabel: "User ID", serverLabel: "Zone ID (4-5 digit)",
+                howToCheck: "Buka aplikasi MLBB → klik ikon profil (pojok kiri atas) → User ID adalah 8-9 digit sebelum kurung, Zone ID adalah angka di dalam kurung."
+            },
+            2: { name: "Free Fire MAX", banner: "https://cdn.codashop.com/static/assets/games/free-fire-max.jpg", currency: "Diamonds",
+                packages: [{qty: "5 Diamonds", price: 1000}, {qty: "12 Diamonds", price: 2000}, {qty: "50 Diamonds", price: 8000}, {qty: "100 Diamonds", price: 13000}, {qty: "355 Diamonds", price: 42000}],
+                idLabel: "Player ID", serverLabel: "Tidak perlu Server",
+                howToCheck: "Buka Free Fire MAX → klik ikon profil → Player ID adalah deretan angka panjang di bawah nama akun Anda."
+            },
+            3: { name: "Genshin Impact", banner: "https://cdn.codashop.com/static/assets/games/genshin-impact.jpg", currency: "Genesis Crystals",
+                packages: [{qty: "60 GC", price: 15000}, {qty: "330 GC", price: 76000}, {qty: "1090 GC", price: 270000}],
+                idLabel: "UID (9 digit)", serverLabel: "Tidak perlu Server",
+                howToCheck: "Buka Genshin Impact → klik ikon profil (pojok kiri atas) → UID tertera di bagian atas."
+            },
+            4: { name: "Roblox", banner: "https://cdn.codashop.com/static/assets/games/roblox.jpg", currency: "Robux",
+                packages: [{qty: "400 Robux", price: 50000}, {qty: "800 Robux", price: 90000}, {qty: "1700 Robux", price: 180000}],
+                idLabel: "Username Roblox", serverLabel: "Tidak perlu Server",
+                howToCheck: "Buka Roblox → klik profil → Username adalah nama akun Anda (bukan angka ID)."
+            },
+            5: { name: "PUBG Mobile", banner: "https://cdn.codashop.com/static/assets/games/pubg-mobile.jpg", currency: "UC",
+                packages: [{qty: "60 UC", price: 16000}, {qty: "325 UC", price: 78000}, {qty: "660 UC", price: 156000}],
+                idLabel: "Player ID", serverLabel: "Tidak perlu Server",
+                howToCheck: "Buka PUBG Mobile → klik profil → Player ID adalah deretan angka di bawah nama."
+            },
+            6: { name: "Honkai: Star Rail", banner: "https://cdn.codashop.com/static/assets/games/honkai-star-rail.jpg", currency: "Oneiric Shard",
+                packages: [{qty: "60 Shard", price: 15000}, {qty: "300 Shard", price: 79000}, {qty: "980 Shard", price: 270000}],
+                idLabel: "UID (9 digit)", serverLabel: "Tidak perlu Server",
+                howToCheck: "Buka Honkai Star Rail → klik ikon profil → UID tertera di bagian atas layar."
+            }
+        };
+
+        let currentGameId = null;
+        let currentPackage = null;
+
+        const liveMessages = [
+            "✅ @dimasgaming23 top up 169 Diamonds MLBB • 42 detik lalu",
+            "✅ @sinta_ff top up 355 Diamonds Free Fire MAX • 1 menit lalu",
+            "✅ @raihan_hoyoverse top up 330 GC Genshin • 2 menit lalu",
+            "✅ @robloxindonesia top up 1700 Robux • 3 menit lalu",
+            "✅ @ucpubgpro top up 660 UC PUBG • 4 menit lalu",
+            "✅ @starrail_id top up 980 Shard Honkai • 5 menit lalu"
         ];
 
-        function populateGames() {
-            const container = document.getElementById('games-grid');
-            games.forEach(g => {
-                const card = document.createElement('div');
-                card.className = `game-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer`;
-                card.innerHTML = `
-                    <div class="game-image-container flex items-center justify-center p-8 bg-zinc-950">
-                        <img src="${g.img}" class="max-h-56 w-auto object-contain">
-                    </div>
-                    <div class="p-6 text-center">
-                        <p class="font-bold text-xl">${g.name}</p>
-                    </div>
-                `;
-                container.appendChild(card);
+        function startLiveTicker() {
+            const ticker = document.getElementById('liveTicker');
+            let html = '';
+            for (let i = 0; i < 2; i++) {
+                liveMessages.forEach(msg => {
+                    html += `<span class="inline-block mx-8">${msg}</span>`;
+                });
+            }
+            ticker.innerHTML = `<div class="live-marquee">${html}</div>`;
+        }
+
+        function selectGame(id) {
+            currentGameId = id;
+            const game = gamesData[id];
+            currentPackage = null;
+
+            document.getElementById('modalGameTitle').innerHTML = `
+                <div class="w-9 h-9 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-xl font-bold">?</div>
+                <div>
+                    <p class="font-bold text-2xl">${game.name}</p>
+                    <p class="text-yellow-400 text-base -mt-1">${game.currency}</p>
+                </div>
+            `;
+
+            let html = '';
+            game.packages.forEach(pkg => {
+                html += `
+                    <div onclick="selectPackage(this)" 
+                         data-qty="${pkg.qty}" 
+                         data-price="${pkg.price}"
+                         class="package-item bg-zinc-800 hover:bg-zinc-700 border-2 border-transparent rounded-3xl p-5 cursor-pointer transition-all text-center">
+                        <p class="font-bold text-xl">${pkg.qty}</p>
+                        <p class="text-xs text-zinc-400">${game.currency}</p>
+                        <p class="mt-3 text-yellow-400 font-bold text-2xl">Rp ${pkg.price.toLocaleString('id-ID')}</p>
+                    </div>`;
+            });
+            document.getElementById('priceList').innerHTML = html;
+
+            document.getElementById('idLabel').textContent = game.idLabel;
+            document.getElementById('userIdInput').placeholder = `Masukkan ${game.idLabel}`;
+
+            const serverField = document.getElementById('serverField');
+            if (game.serverLabel === "Tidak perlu Server") {
+                serverField.classList.add('hidden');
+            } else {
+                serverField.classList.remove('hidden');
+                document.getElementById('serverLabel').textContent = game.serverLabel;
+            }
+
+            document.getElementById('howToCheckText').innerHTML = game.howToCheck;
+
+            document.getElementById('topupModal').classList.remove('hidden');
+            document.getElementById('topupModal').classList.add('flex');
+        }
+
+        function selectPackage(el) {
+            document.querySelectorAll('.package-item').forEach(item => item.classList.remove('border-yellow-400', 'bg-yellow-400/10'));
+            el.classList.add('border-yellow-400', 'bg-yellow-400/10');
+
+            currentPackage = {
+                qty: el.getAttribute('data-qty'),
+                price: parseInt(el.getAttribute('data-price'))
+            };
+
+            const display = document.getElementById('selectedPackageDisplay');
+            display.classList.remove('hidden');
+            document.getElementById('selectedQty').textContent = currentPackage.qty;
+            document.getElementById('selectedCurrency').textContent = gamesData[currentGameId].currency;
+            document.getElementById('selectedPrice').textContent = currentPackage.price.toLocaleString('id-ID');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('topupModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.getElementById('selectedPackageDisplay').classList.add('hidden');
+            currentPackage = null;
+        }
+
+        function proceedToPayment() {
+            const userId = document.getElementById('userIdInput').value.trim();
+            const server = document.getElementById('serverInput') && !document.getElementById('serverField').classList.contains('hidden') 
+                           ? document.getElementById('serverInput').value.trim() 
+                           : 'Tidak diperlukan';
+            
+            if (!userId) {
+                alert('⚠️ Harap isi User ID terlebih dahulu!');
+                return;
+            }
+            if (!currentPackage) {
+                alert('⚠️ Silakan pilih nominal top up terlebih dahulu!');
+                return;
+            }
+
+            const game = gamesData[currentGameId];
+            const total = currentPackage.price;
+            
+            const message = `Halo Guardians Topup,%0A%0A` +
+                `Saya ingin top up:%0A` +
+                `Game: ${game.name}%0A` +
+                `Nominal: ${currentPackage.qty}%0A` +
+                `Harga: Rp ${total.toLocaleString('id-ID')}%0A` +
+                `User ID: ${userId}%0A` +
+                `Server/Zone: ${server}%0A%0A` +
+                `Mohon diproses secepatnya. Terima kasih! 🙏`;
+            
+            const waUrl = `https://wa.me/628161113164?text=${message}`;
+            window.open(waUrl, '_blank');
+            
+            setTimeout(() => {
+                alert('✅ Pesanan dikirim ke WhatsApp!\n\nAdmin akan segera memproses top up Anda dalam 1-5 menit.');
+                closeModal();
+            }, 800);
+        }
+
+        function copyVoucher() {
+            navigator.clipboard.writeText("GUARDIANSTREND2026").then(() => {
+                const el = event.currentTarget;
+                const old = el.innerHTML;
+                el.innerHTML = '✅ Tersalin!';
+                setTimeout(() => el.innerHTML = old, 2000);
             });
         }
 
-        window.onload = populateGames;
+        function showPoints() {
+            alert('💰 Poin Anda: 12.450\n\nTukarkan poin dengan voucher game trending!');
+        }
+
+        function toggleMenu() {
+            alert('Menu lengkap akan muncul di versi production.');
+        }
+
+        function setupSearch() {
+            const inputs = ['searchInput', 'searchInputMobile'];
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('keypress', e => {
+                    if (e.key === 'Enter' && el.value.trim()) alert(`Mencari: ${el.value}\n\nHasil akan muncul di halaman pencarian (demo)`);
+                });
+            });
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.metaKey && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+        });
+
+        window.onload = () => {
+            setupSearch();
+            startLiveTicker();
+            console.log('%c✅ GUARDIANS TOPUP 2026 - Layout tombol WA sudah diperbaiki (lebih besar, lebih hijau, icon lebih rapi, dan tampilan profesional sesuai screenshot)', 'color:#facc15; font-weight:bold');
+        };
     </script>
 </body>
 </html>
