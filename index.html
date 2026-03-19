@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwiftTopup - Top Up Game Instan Live</title>
+    <title>Guardians Finance - Top Up Game Instan Live</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap');
-        .neon { text-shadow: 0 0 15px rgb(16 185 129); }
+        .neon { text-shadow: 0 0 20px rgb(16 185 129); }
         .card-hover:hover { transform: translateY(-12px) scale(1.03); }
         .live-dot { animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -19,8 +19,8 @@
     <nav class="fixed top-0 w-full bg-zinc-950/90 backdrop-blur-lg border-b border-zinc-800 z-50">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-violet-500 rounded-2xl flex items-center justify-center text-3xl">⚡</div>
-                <span class="text-3xl font-bold tracking-tighter neon">SWIFTTOPUP</span>
+                <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-violet-500 rounded-2xl flex items-center justify-center text-3xl">🛡️</div>
+                <span class="text-3xl font-bold tracking-tighter neon">GUARDIANS FINANCE</span>
             </div>
             <div class="hidden md:flex gap-8 text-sm font-medium">
                 <a href="#games" class="hover:text-emerald-400 transition">Game</a>
@@ -30,7 +30,7 @@
                     <span id="cart-count" class="text-emerald-400 font-bold">0</span>
                 </a>
             </div>
-            <button onclick="window.open('https://wa.me/6281234567890?text=Halo%20SwiftTopup,%20mau%20topup%20game','_blank')" 
+            <button onclick="window.open('https://wa.me/628161113164?text=Halo%20Guardians%20Finance,%20mau%20topup%20game','_blank')" 
                     class="bg-emerald-500 hover:bg-emerald-600 px-6 py-3 rounded-2xl font-semibold flex items-center gap-2 transition">
                 <i class="fa-brands fa-whatsapp"></i> WA
             </button>
@@ -43,7 +43,7 @@
             <div class="space-y-8">
                 <div class="inline-flex items-center gap-2 bg-emerald-950 text-emerald-400 px-5 py-2 rounded-3xl text-sm">
                     <div class="w-2 h-2 bg-emerald-400 rounded-full live-dot"></div>
-                    124 TRANSAKSI SEDANG LIVE
+                    312 TRANSAKSI SEDANG LIVE
                 </div>
                 <h1 class="text-6xl md:text-7xl font-bold tracking-tighter leading-none neon">TOP UP GAME<br><span class="text-emerald-400">LANGSUNG JADI</span></h1>
                 <p class="text-xl text-zinc-400">Proses instan • Harga termurah • Aman 100% • 24/7</p>
@@ -80,7 +80,7 @@
     <div id="modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
         <div class="bg-zinc-900 rounded-3xl max-w-md w-full p-8">
             <h3 id="modal-game" class="text-3xl font-bold mb-6"></h3>
-            <div class="grid grid-cols-3 gap-3 mb-8" id="nominal-grid"></div>
+            <div class="grid grid-cols-2 gap-3 mb-8" id="nominal-grid"></div>
             <input id="uid-input" type="text" placeholder="Masukkan UID / ID Game" 
                    class="w-full bg-zinc-800 rounded-2xl px-5 py-4 text-white placeholder-zinc-500 focus:outline-none">
             <button onclick="processOrder()" 
@@ -92,7 +92,7 @@
     </div>
 
     <!-- FLOATING WA -->
-    <a href="https://wa.me/6281234567890" target="_blank" 
+    <a href="https://wa.me/628161113164" target="_blank" 
        class="fixed bottom-8 right-8 bg-green-500 w-16 h-16 rounded-3xl flex items-center justify-center text-5xl shadow-2xl z-50 hover:scale-110 transition">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
@@ -104,8 +104,77 @@
             {name:"Genshin Impact", icon:"🌟", color:"from-amber-500 to-yellow-500"},
             {name:"Valorant", icon:"🎯", color:"from-red-500 to-rose-500"},
             {name:"Roblox", icon:"📦", color:"from-blue-500 to-cyan-500"},
-            {name:"PUBG Mobile", icon:"🔫", color:"from-emerald-500 to-teal-500"}
+            {name:"PUBG Mobile", icon:"🔫", color:"from-emerald-500 to-teal-500"},
+            {name:"Honor of Kings", icon:"👑", color:"from-purple-500 to-pink-500"},
+            {name:"Arena of Valor", icon:"⚔️", color:"from-cyan-500 to-blue-500"},
+            {name:"Call of Duty Mobile", icon:"🎮", color:"from-rose-500 to-orange-500"},
+            {name:"Clash of Clans", icon:"🏰", color:"from-amber-500 to-yellow-500"},
+            {name:"FIFA Mobile", icon:"⚽", color:"from-green-500 to-teal-500"},
+            {name:"Nikke", icon:"🔫", color:"from-pink-500 to-violet-500"}
         ];
+
+        const gamePackages = {
+            "Mobile Legends": [
+                {label: "257 Diamonds", price: "Rp 49.000"},
+                {label: "500 Diamonds", price: "Rp 90.000"},
+                {label: "1000 Diamonds", price: "Rp 180.000"},
+                {label: "2000 Diamonds", price: "Rp 360.000"}
+            ],
+            "Free Fire": [
+                {label: "100 Diamonds", price: "Rp 15.000"},
+                {label: "500 Diamonds", price: "Rp 70.000"},
+                {label: "1000 Diamonds", price: "Rp 130.000"},
+                {label: "2000 Diamonds", price: "Rp 260.000"}
+            ],
+            "Genshin Impact": [
+                {label: "60 Genesis Crystals", price: "Rp 15.000"},
+                {label: "300 Genesis Crystals", price: "Rp 65.000"},
+                {label: "980 Genesis Crystals", price: "Rp 200.000"},
+                {label: "1980 Genesis Crystals", price: "Rp 400.000"}
+            ],
+            "Valorant": [
+                {label: "100 VP", price: "Rp 20.000"},
+                {label: "500 VP", price: "Rp 90.000"},
+                {label: "1000 VP", price: "Rp 180.000"},
+                {label: "2000 VP", price: "Rp 360.000"}
+            ],
+            "Roblox": [
+                {label: "400 Robux", price: "Rp 50.000"},
+                {label: "800 Robux", price: "Rp 95.000"},
+                {label: "1700 Robux", price: "Rp 190.000"}
+            ],
+            "PUBG Mobile": [
+                {label: "300 UC", price: "Rp 45.000"},
+                {label: "600 UC", price: "Rp 85.000"},
+                {label: "1500 UC", price: "Rp 210.000"}
+            ],
+            "Honor of Kings": [
+                {label: "300 Tokens", price: "Rp 40.000"},
+                {label: "600 Tokens", price: "Rp 75.000"},
+                {label: "1500 Tokens", price: "Rp 180.000"}
+            ],
+            "Arena of Valor": [
+                {label: "300 Vouchers", price: "Rp 35.000"},
+                {label: "1000 Vouchers", price: "Rp 110.000"}
+            ],
+            "Call of Duty Mobile": [
+                {label: "500 CP", price: "Rp 60.000"},
+                {label: "1000 CP", price: "Rp 115.000"},
+                {label: "2000 CP", price: "Rp 220.000"}
+            ],
+            "Clash of Clans": [
+                {label: "500 Gems", price: "Rp 55.000"},
+                {label: "1000 Gems", price: "Rp 105.000"}
+            ],
+            "FIFA Mobile": [
+                {label: "1000 Coins", price: "Rp 45.000"},
+                {label: "3000 Coins", price: "Rp 120.000"}
+            ],
+            "Nikke": [
+                {label: "1000 Crystals", price: "Rp 80.000"},
+                {label: "3000 Crystals", price: "Rp 220.000"}
+            ]
+        };
 
         function populateGames() {
             const container = document.getElementById('games-grid');
@@ -119,35 +188,45 @@
         }
 
         let currentGame = "";
+        let selectedPackage = "";
         function showModal(game) {
             currentGame = game;
             document.getElementById('modal-game').textContent = `Top Up ${game}`;
             document.getElementById('modal').classList.remove('hidden');
             document.getElementById('modal').classList.add('flex');
-            const grid = document.getElementById('nominal-grid');
-            grid.innerHTML = `
-                <button onclick="selectNominal(this)" class="bg-zinc-800 hover:bg-zinc-700 py-4 rounded-2xl font-medium">257 DM</button>
-                <button onclick="selectNominal(this)" class="bg-zinc-800 hover:bg-zinc-700 py-4 rounded-2xl font-medium">500 DM</button>
-                <button onclick="selectNominal(this)" class="bg-zinc-800 hover:bg-zinc-700 py-4 rounded-2xl font-medium">1000 DM</button>
-            `;
-        }
 
-        function selectNominal(el) {
-            document.querySelectorAll('#nominal-grid button').forEach(b => b.classList.remove('ring-2','ring-emerald-400'));
-            el.classList.add('ring-2','ring-emerald-400');
+            const grid = document.getElementById('nominal-grid');
+            grid.innerHTML = '';
+            const packages = gamePackages[game] || [];
+            packages.forEach(pkg => {
+                const btn = document.createElement('button');
+                btn.className = "bg-zinc-800 hover:bg-zinc-700 py-4 rounded-2xl font-medium text-left px-4";
+                btn.innerHTML = `${pkg.label}<br><span class="text-emerald-400 font-bold">${pkg.price}</span>`;
+                btn.onclick = () => {
+                    document.querySelectorAll('#nominal-grid button').forEach(b => b.classList.remove('ring-2','ring-emerald-400'));
+                    btn.classList.add('ring-2','ring-emerald-400');
+                    selectedPackage = `${pkg.label} - ${pkg.price}`;
+                };
+                grid.appendChild(btn);
+            });
         }
 
         function closeModal() {
             const modal = document.getElementById('modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+            selectedPackage = "";
         }
 
         function processOrder() {
             const uid = document.getElementById('uid-input').value || "UID123456";
-            alert(`✅ Order ${currentGame} berhasil diproses!\nUID: ${uid}\nStatus: Langsung masuk ke akun kamu (live)`);
+            if (!selectedPackage) {
+                alert("Pilih nominal terlebih dahulu!");
+                return;
+            }
+            alert(`✅ Order ${currentGame} berhasil diproses!\nUID: ${uid}\nPaket: ${selectedPackage}\nStatus: Langsung masuk ke akun kamu (live)`);
             closeModal();
-            addLiveTransaction(`Topup ${currentGame} • ${uid}`);
+            addLiveTransaction(`Topup ${currentGame} • ${selectedPackage}`);
         }
 
         function addLiveTransaction(text) {
@@ -156,16 +235,16 @@
             item.className = "bg-zinc-900 border border-emerald-900 p-4 rounded-2xl flex justify-between items-center";
             item.innerHTML = `<div><span class="font-medium">${text}</span></div><div class="text-xs text-emerald-400">✔️ Sukses</div>`;
             feed.prepend(item);
-            if (feed.children.length > 7) feed.lastChild.remove();
+            if (feed.children.length > 8) feed.lastChild.remove();
         }
 
         function startLive() {
-            const examples = ["Budi topup MLBB 500 DM", "Rina topup Genshin 980 GC", "Andi topup Free Fire 1000 DM", "Sari topup Valorant 2000 VP"];
+            const examples = ["Budi topup MLBB 500 DM - Rp 90.000", "Rina topup Genshin 980 GC - Rp 200.000", "Andi topup Free Fire 1000 DM - Rp 130.000"];
             let i = 0;
             setInterval(() => {
                 addLiveTransaction(examples[i % examples.length]);
                 i++;
-            }, 6000);
+            }, 5000);
         }
 
         let cart = 0;
@@ -176,7 +255,7 @@
         window.onload = () => {
             populateGames();
             startLive();
-            for(let i=0; i<5; i++) addLiveTransaction("Player" + (100+i) + " topup MLBB");
+            for(let i=0; i<6; i++) addLiveTransaction("Player" + (100+i) + " topup MLBB");
         };
 
         function toggleCart() {
